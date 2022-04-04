@@ -1,0 +1,50 @@
+definitions:
+  dto.Response:
+    properties:
+      message:
+        type: string
+    type: object
+  entity.CovidSummary:
+    properties:
+      ageGroup:
+        $ref: '#/definitions/entity.Group'
+      province:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  entity.Group:
+    properties:
+      0-30:
+        type: integer
+      31-60:
+        type: integer
+      61+:
+        type: integer
+      N/A:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /covid/summary:
+    get:
+      consumes:
+      - application/json
+      description: Get covid summary include case per province and case per group
+        age
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.CovidSummary'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: Get covid summary
+      tags:
+      - covid
+swagger: "2.0"

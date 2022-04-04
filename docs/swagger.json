@@ -1,0 +1,78 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/covid/summary": {
+            "get": {
+                "description": "Get covid summary include case per province and case per group age",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "covid"
+                ],
+                "summary": "Get covid summary",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.CovidSummary"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.Response": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "entity.CovidSummary": {
+            "type": "object",
+            "properties": {
+                "ageGroup": {
+                    "$ref": "#/definitions/entity.Group"
+                },
+                "province": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "entity.Group": {
+            "type": "object",
+            "properties": {
+                "0-30": {
+                    "type": "integer"
+                },
+                "31-60": {
+                    "type": "integer"
+                },
+                "61+": {
+                    "type": "integer"
+                },
+                "N/A": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
